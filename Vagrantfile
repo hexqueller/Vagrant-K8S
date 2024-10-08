@@ -1,21 +1,22 @@
 Vagrant.configure("2") do |config|
 
-    # Массив с параметрами виртуальных машин
-    machines = [
-      { name: "master", ip: "10.0.0.99" },
-      { name: "node01", ip: "10.0.0.98" },
-      { name: "node01", ip: "10.0.0.97" }
-    ]
-  
-    machines.each do |machine|
-      config.vm.define machine[:name] do |node|
-        node.vm.provider "virtualbox" do |vb|
-          vb.memory = "2048"
-          vb.cpus = 2
-        end
-        node.vm.box = "almalinux/9"
-        node.vm.hostname = machine[:name]
-        node.vm.network "public_network", bridge: "eno1", ip: machine[:ip], dev: "eno1"
+  machines = [
+    { name: "kmaster", ip: "10.0.0.20" },
+    { name: "kworker1", ip: "10.0.0.21" },
+    { name: "kworker2", ip: "10.0.0.22" }
+  ]
+
+  machines.each do |machine|
+    config.vm.define machine[:name] do |node|
+      node.vm.box = "almalinux/9"
+      node.vm.hostname = machine[:name]
+      node.vm.network "public_network", bridge: "eno1", ip: machine[:ip], dev: "eno1"
+      node.vm.provider "virtualbox" do |vb|
+        vb.memory = "2048"
+        vb.cpus = 2
       end
+
+      node.vm.provision "shell", path: "prepareOS.sh"
     end
   end
+end
