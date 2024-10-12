@@ -17,6 +17,8 @@ Vagrant.configure("2") do |config|
       end
 
       node.vm.provision "shell", path: "prepareOS.sh"
+      node.vm.provision "shell", path: "install-cni.sh"
+      node.vm.provision "shell", path: "install-k8s.sh"
     end
   end
 end
