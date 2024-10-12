@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     { name: "kworker2", ip: "10.0.0.22" }
   ]
 
-  machines.each do |machine|
+  machines.reverse.each do |machine|
     config.vm.define machine[:name] do |node|
       node.vm.box = "almalinux/9"
       node.vm.hostname = machine[:name]
@@ -19,6 +19,10 @@ Vagrant.configure("2") do |config|
       node.vm.provision "shell", path: "prepareOS.sh"
       node.vm.provision "shell", path: "install-cni.sh"
       node.vm.provision "shell", path: "install-k8s.sh"
+
+      if machine[:name] == "kmaster"
+        node.vm.provision "shell", path: "init-cluster.sh"
+      end
     end
   end
 end
