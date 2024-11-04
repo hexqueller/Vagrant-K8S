@@ -1,3 +1,4 @@
+ENV['VAGRANT_SERVER_URL'] = 'https://vagrant.elab.pro'
 Vagrant.configure("2") do |config|
 
   machines = [
@@ -10,7 +11,7 @@ Vagrant.configure("2") do |config|
     config.vm.define machine[:name] do |node|
       node.vm.box = "almalinux/9"
       node.vm.hostname = machine[:name]
-      node.vm.network "public_network", bridge: "eno1", ip: machine[:ip], dev: "eno1"
+      node.vm.network "public_network", bridge: "Intel(R) Ethernet Connection (17) I219-V", ip: machine[:ip], dev: "eno1"
       node.vm.provider "virtualbox" do |vb|
         vb.memory = "2048"
         vb.cpus = 2
