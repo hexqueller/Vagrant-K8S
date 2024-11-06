@@ -16,12 +16,12 @@ Vagrant.configure("2") do |config|
         vb.cpus = 2
       end
 
-      node.vm.provision "shell", path: "prepareOS.sh"
-      node.vm.provision "shell", path: "install-cni.sh"
-      node.vm.provision "shell", path: "install-k8s.sh"
+      node.vm.provision "shell", path: "./scripts/prepareOS.sh"
+      node.vm.provision "shell", path: "./scripts/install-cni.sh"
+      node.vm.provision "shell", path: "./scripts/install-k8s.sh"
 
       if machine[:name] == "kmaster"
-        node.vm.provision "shell", path: "init-cluster.sh"
+        node.vm.provision "shell", path: "./scripts/init-cluster.sh"
       end
     end
   end
