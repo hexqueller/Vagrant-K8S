@@ -1,5 +1,8 @@
 Vagrant.configure("2") do |config|
 
+  bridge_name = ENV['BRIDGE_NAME'] || "Intel(R) Ethernet Connection (17) I219-V"
+  bridges = [bridge_name, "eno1"]
+
   machines = [
     { name: "kmaster", ip: "10.0.0.20" },
     { name: "kworker1", ip: "10.0.0.21" },
@@ -10,13 +13,12 @@ Vagrant.configure("2") do |config|
     config.vm.define machine[:name] do |node|
       node.vm.box = "almalinux/9"
       node.vm.hostname = machine[:name]
-      # Use linux or Windows network
       node.vm.network "public_network", 
-                     bridge: ["Intel(R) Ethernet Connection (17) I219-V", "eno1"],
+                     bridge: bridges,
                      ip: machine[:ip],
                      auto_config: true
       node.vm.provider "virtualbox" do |vb|
-        vb.memory = "2048"
+        vb.memory = "4096"
         vb.cpus = 2
       end
 
