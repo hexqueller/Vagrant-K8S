@@ -1,2 +1,4 @@
 #!/bin/bash
-echo 'alias k="kubectl"' >> /home/vagrant/.bashrc
+
+
+echo 'alias k="kubectl"' >> ~/.bashrc
