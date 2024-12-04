@@ -16,9 +16,6 @@ ssh -o StrictHostKeyChecking=no root@kworker1 "$connect_command"
 ssh -o StrictHostKeyChecking=no root@kworker2 "$connect_command"
 
 # Configure config for vagrant user
-mkdir -p /home/vagrant/.kube
-cp /etc/kubernetes/admin.conf /home/vagrant/.kube/config
-chmod 644 /home/vagrant/.kube/config
-
-# For copy to local machine 
-cat /home/vagrant/.kube/config
+mkdir -p ~/.kube
+cp /etc/kubernetes/admin.conf ~/.kube/config
+chmod 644 ~/.kube/config
